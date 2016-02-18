@@ -1,0 +1,16 @@
+Version 0.1:
+- Initial release
+
+Version 0.1.1:
+- Added I/0 username storage
+- Replaced username textfield with settings button
+- Fixed version being a double by making it a string
+
+Version 0.1.2:
+- Added username validation to server
+- Handled program exiting when the username option pane is exited out of
+- Fixed messages not sending
+- Fixed message pane not scrolling to bottom
+
+Version 0.1.2.1:
+- Allowed running plain jar without command line arguments
