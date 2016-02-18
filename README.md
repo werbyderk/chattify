@@ -23,12 +23,15 @@ Instead of having a traditional server-client system to send messages, Chattify 
 ###Changelog
 #####Version 0.1
 - Initial release
+
 #####Version 0.1.1
 - Support for saving username
 - Replaced username textfield with settings button
 - Bug fixes
+
 #####Version 0.1.2
 - Added username validation
 - Bug fixes
+
 #####Version 0.1.2.1
 - Fixed running jar file without JVM arguments
