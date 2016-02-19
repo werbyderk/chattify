@@ -14,25 +14,16 @@ public class Client implements Runnable {
 	public DataOutputStream out;
 	public BufferedReader in;
 	private Messages m;
-<<<<<<< ours
-<<<<<<< ours
 	private UsersUI u;
 	
 	public Client(Messages m, UsersUI u) throws SocketException {
 		this.m = m;
 		this.u = u;
-=======
-=======
->>>>>>> theirs
 	private Settings set;
 	
 	public Client(Messages m, Settings set) throws SocketException {
 		this.m = m;
 		this.set = set;
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 		socket = new DatagramSocket();
 		new Thread(this).start();
 	}
@@ -106,8 +97,6 @@ public class Client implements Runnable {
 				System.out.println("Waiting for a valid username to send");
 				
 				//Send username
-<<<<<<< ours
-<<<<<<< ours
 				boolean isValid = false;
 				while (!isValid) {
 					//Wait for entry
@@ -119,16 +108,11 @@ public class Client implements Runnable {
 				}
 				System.out.println("Sending username...");
 				out.writeBytes(u.username.getText()+"\n");
-=======
+				System.out.println("Sending username '"+set.getUname()+"'");
+				out.writeBytes(set.getUname()+"\n");
 				
 				System.out.println("Sending username '"+set.getUname()+"'");
 				out.writeBytes(set.getUname()+"\n");
->>>>>>> theirs
-=======
-				
-				System.out.println("Sending username '"+set.getUname()+"'");
-				out.writeBytes(set.getUname()+"\n");
->>>>>>> theirs
 				
 				//Make sure server allows connection (in case of identical usernames)
 				System.out.println("Waiting for approval from server...");
@@ -139,29 +123,20 @@ public class Client implements Runnable {
 					m.appendString("Error: Username already taken!", true);
 					
 					System.out.println("Client creating new child");
-<<<<<<< ours
-<<<<<<< ours
 					new Client(m, u);
-=======
 					new Client(m, set);
->>>>>>> theirs
 					return;
 				} else {
 					System.out.println("Username accepted");
 				}
 				//Start new client
 				System.out.println("Client creating new child");
-<<<<<<< ours
 				new Client(m, u);
-=======
 				new Client(m, set);
->>>>>>> theirs
 				
 				//Listen for then send messages
 				while (true) {
-<<<<<<< ours
 					Thread.sleep(50);
-=======
 					new Client(m, set);
 					return;
 				} else {
@@ -174,10 +149,7 @@ public class Client implements Runnable {
 				//Listen for then send messages
 				while (true) {
 					Thread.sleep(300);
->>>>>>> theirs
-=======
 					Thread.sleep(300);
->>>>>>> theirs
 					if (m.toBeSent) {
 						System.out.println("Sending message '"+m.message.getText()+"' via TCP...");
 						out.writeBytes(m.message.getText()+'\n');
@@ -188,15 +160,9 @@ public class Client implements Runnable {
 				
 			} else if (data[0] == NetConstants.SERVER_REQUEST_DENIED[0]) {
 				System.out.println("Remote server denied access");
-<<<<<<< ours
-<<<<<<< ours
 				new Client(m, u);
-=======
 				new Client(m, set);
->>>>>>> theirs
-=======
 				new Client(m, set);
->>>>>>> theirs
 				return;
 			}
 		} catch (IOException | InterruptedException e) {
