@@ -1,11 +1,3 @@
-<<<<<<< ours
-<<<<<<< ours
-
-public class Settings {
-
-=======
-=======
->>>>>>> theirs
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -34,21 +26,9 @@ public class Settings {
 			}
 			in.close();
 			System.out.println("Retreived username '"+username+"' from config file");
-<<<<<<< ours
-<<<<<<< ours
-			if (username.equals("")) writeNewUname();
-		} catch (FileNotFoundException e) {
-			writeNewUname();
-=======
 			if (username.equals("")) writeNewUname(false);
 		} catch (FileNotFoundException e) {
 			writeNewUname(true);
->>>>>>> theirs
-=======
-			if (username.equals("")) writeNewUname(false);
-		} catch (FileNotFoundException e) {
-			writeNewUname(true);
->>>>>>> theirs
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,67 +36,29 @@ public class Settings {
 		settingsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< ours
-<<<<<<< ours
-				writeNewUname();
-=======
 				writeNewUname(false);
->>>>>>> theirs
-=======
-				writeNewUname(false);
->>>>>>> theirs
 			}
 		});
 	}
 
-<<<<<<< ours
-<<<<<<< ours
-	private void writeNewUname() {
-		//Prompt user for a username
-		String txt = JOptionPane.showInputDialog(new JTextField(), "Please enter username:", "New Username", JOptionPane.DEFAULT_OPTION);			
-		System.out.println("Got username text: "+txt);
-		//Exit if there's no username
-		if (txt.equals("") || txt.equals(null)) {
-			System.exit(0);
-		}
-		try {
-=======
 	private void writeNewUname(boolean hard) {
 		try {
-=======
-	private void writeNewUname(boolean hard) {
-		try {
->>>>>>> theirs
 			//Prompt user for a username
 			String txt = JOptionPane.showInputDialog(new JTextField(), "Please enter username:", "New Username", JOptionPane.DEFAULT_OPTION);			
 			System.out.println("Got username text: "+txt);
 			//Exit if there's no username
 			if (txt.equals("") && hard) System.exit(0);
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 			System.out.println("Writing inputted username to config file");
 			out = new FileWriter("chattify.cfg");
 			out.write(txt);
 			out.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();          
-<<<<<<< ours
-<<<<<<< ours
-		}
-=======
-=======
->>>>>>> theirs
 		} catch (NullPointerException e) {
 			if (hard) System.exit(0);
 		}
 
 
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 	}
 
 	public String getUname() {
@@ -136,8 +78,4 @@ public class Settings {
 		}
 		return null;
 	}
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 }

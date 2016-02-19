@@ -7,19 +7,7 @@ import java.net.SocketException;
 
 public class MainRunner extends JFrame {
 	private static final long serialVersionUID = 1L;
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-	public static final double version = 0.1;
-=======
-	public static final String version = "0.1.1";
->>>>>>> theirs
-=======
-	public static final String version = "0.1.2";
->>>>>>> theirs
-=======
 	public static final String version = "0.1.2.1";
->>>>>>> theirs
 	private static final String title = "Chattify v"+version;
 	private static final int WIDTH = 700;
 	private static final int HEIGHT = 450;
@@ -28,36 +16,16 @@ public class MainRunner extends JFrame {
 	//Interface declarations
 	private GridBagConstraints c;
 	public JPanel panel;
-<<<<<<< ours
-<<<<<<< ours
-=======
 	private Settings stngs;
->>>>>>> theirs
-=======
-	private Settings stngs;
->>>>>>> theirs
 
 	
 	public MainRunner() {
 		//**Constructor**
-<<<<<<< ours
-<<<<<<< ours
-		msgs = new Messages(this);
-		usrUI = new UsersUI(msgs);
-		try {
-			new Client(msgs, usrUI);
-=======
-=======
->>>>>>> theirs
 		stngs = new Settings();
 		msgs = new Messages(this);
 		usrUI = new UsersUI(msgs);
 		try {
 			new Client(msgs, stngs);
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 		} catch (SocketException e) {
 			msgs.error(e);
 			e.printStackTrace();
@@ -126,15 +94,7 @@ public class MainRunner extends JFrame {
 		c.weightx = 0.08;
 		c.weighty = 0.05;
 		c.fill = GridBagConstraints.HORIZONTAL;
-<<<<<<< ours
-<<<<<<< ours
-		draw(usrUI.username, 0, 2);
-=======
 		draw(stngs.settingsButton, 0, 2);
->>>>>>> theirs
-=======
-		draw(stngs.settingsButton, 0, 2);
->>>>>>> theirs
 		add(panel);
 		
 		//JFrame properties
