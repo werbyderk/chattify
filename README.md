@@ -18,7 +18,8 @@ Instead of having a traditional server-client system to send messages, Chattify 
 - Better handling of changing username
 - Direct messaging
 - Ability to block a user
-- Over internet direct messaging
+- Over internet direct messaging (?)
+- Score system (?)
 
 ###Changelog
 #####Version 0.1
