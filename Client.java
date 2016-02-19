@@ -14,6 +14,14 @@ public class Client implements Runnable {
 	public DataOutputStream out;
 	public BufferedReader in;
 	private Messages m;
+<<<<<<< HEAD
+=======
+	private UsersUI u;
+	
+	public Client(Messages m, UsersUI u) throws SocketException {
+		this.m = m;
+		this.u = u;
+>>>>>>> origin/master
 	private Settings set;
 	
 	public Client(Messages m, Settings set) throws SocketException {
@@ -92,6 +100,22 @@ public class Client implements Runnable {
 				System.out.println("Waiting for a valid username to send");
 				
 				//Send username
+<<<<<<< HEAD
+=======
+				boolean isValid = false;
+				while (!isValid) {
+					//Wait for entry
+					if (u.usrNameValid) {
+						u.username.setEditable(false);
+						isValid = true;
+					}
+					Thread.sleep(100);
+				}
+				System.out.println("Sending username...");
+				out.writeBytes(u.username.getText()+"\n");
+				System.out.println("Sending username '"+set.getUname()+"'");
+				out.writeBytes(set.getUname()+"\n");
+>>>>>>> origin/master
 				
 				System.out.println("Sending username '"+set.getUname()+"'");
 				out.writeBytes(set.getUname()+"\n");
@@ -105,6 +129,23 @@ public class Client implements Runnable {
 					m.appendString("Error: Username already taken!", true);
 					
 					System.out.println("Client creating new child");
+<<<<<<< HEAD
+=======
+					new Client(m, u);
+					new Client(m, set);
+					return;
+				} else {
+					System.out.println("Username accepted");
+				}
+				//Start new client
+				System.out.println("Client creating new child");
+				new Client(m, u);
+				new Client(m, set);
+				
+				//Listen for then send messages
+				while (true) {
+					Thread.sleep(50);
+>>>>>>> origin/master
 					new Client(m, set);
 					return;
 				} else {
@@ -117,6 +158,10 @@ public class Client implements Runnable {
 				//Listen for then send messages
 				while (true) {
 					Thread.sleep(300);
+<<<<<<< HEAD
+=======
+					Thread.sleep(300);
+>>>>>>> origin/master
 					if (m.toBeSent) {
 						System.out.println("Sending message '"+m.message.getText()+"' via TCP...");
 						out.writeBytes(m.message.getText()+'\n');
@@ -127,6 +172,11 @@ public class Client implements Runnable {
 				
 			} else if (data[0] == NetConstants.SERVER_REQUEST_DENIED[0]) {
 				System.out.println("Remote server denied access");
+<<<<<<< HEAD
+=======
+				new Client(m, u);
+				new Client(m, set);
+>>>>>>> origin/master
 				new Client(m, set);
 				return;
 			}
