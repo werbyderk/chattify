@@ -14,3 +14,14 @@ Version 0.1.2:
 
 Version 0.1.2.1:
 - Allowed running plain jar without command line arguments
+
+Version 0.2:
+- Made user pane and messages pane resizable
+- Added horizontal scrolling for messages pane
+- Made server port dynamic - client will retrieve the UDP port from the server, and the server will close that port and use it for TCP
+- Redid config file’s I/O
+- Redid settings menu
+- Added control for client’s UDP timeout to allow quicker connections at the sacrifice of efficiency
+- Minor layout adjustments
+- Added some verbosity to sysout logging for debugging
+- Got rid of Git trash text on source files

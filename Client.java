@@ -14,20 +14,14 @@ public class Client implements Runnable {
 	public DataOutputStream out;
 	public BufferedReader in;
 	private Messages m;
-<<<<<<< HEAD
-=======
-	private UsersUI u;
-	
-	public Client(Messages m, UsersUI u) throws SocketException {
-		this.m = m;
-		this.u = u;
->>>>>>> origin/master
 	private Settings set;
+	public static int refreshTime;
 	
 	public Client(Messages m, Settings set) throws SocketException {
 		this.m = m;
 		this.set = set;
 		socket = new DatagramSocket();
+		refreshTime = set.refreshTime;
 		new Thread(this).start();
 	}
 
@@ -62,7 +56,7 @@ public class Client implements Runnable {
 			byte[] ipAddr;
 			
 			//Send packet, and if no response is given, re-send
-			socket.setSoTimeout(5000);
+			socket.setSoTimeout(500);
 			
 			while (true) {
 				System.out.println("No response from remote servers. Rebroadcasting...");
@@ -76,11 +70,8 @@ public class Client implements Runnable {
 						//If the IP in the packet equals this machines', and the packet isn't from localhost
 						break;
 					} else { 	
-						Thread.sleep(3000);
 					}
 				} catch (SocketTimeoutException e) {
-					//Used so if there's a timeout it won't continue
-					Thread.sleep(3000);
 				}
 			}
 			
@@ -92,30 +83,14 @@ public class Client implements Runnable {
 				//UDP not needed
 				socket.close();
 				
-				//Start TCP connection
-				System.out.println("Client starting TCP...");
-				tcpSocket = new Socket(packet.getAddress(), REMOTE_TCP_PORT);
+				//Start dynamic TCP connection
+				System.out.println("Client starting TCP connection at "+packet.getAddress().toString()+":"+packet.getPort());
+				tcpSocket = new Socket(packet.getAddress(), packet.getPort());
 				out = new DataOutputStream(tcpSocket.getOutputStream());
 				in = new BufferedReader(new InputStreamReader(tcpSocket.getInputStream()));
 				System.out.println("Waiting for a valid username to send");
 				
 				//Send username
-<<<<<<< HEAD
-=======
-				boolean isValid = false;
-				while (!isValid) {
-					//Wait for entry
-					if (u.usrNameValid) {
-						u.username.setEditable(false);
-						isValid = true;
-					}
-					Thread.sleep(100);
-				}
-				System.out.println("Sending username...");
-				out.writeBytes(u.username.getText()+"\n");
-				System.out.println("Sending username '"+set.getUname()+"'");
-				out.writeBytes(set.getUname()+"\n");
->>>>>>> origin/master
 				
 				System.out.println("Sending username '"+set.getUname()+"'");
 				out.writeBytes(set.getUname()+"\n");
@@ -129,23 +104,6 @@ public class Client implements Runnable {
 					m.appendString("Error: Username already taken!", true);
 					
 					System.out.println("Client creating new child");
-<<<<<<< HEAD
-=======
-					new Client(m, u);
-					new Client(m, set);
-					return;
-				} else {
-					System.out.println("Username accepted");
-				}
-				//Start new client
-				System.out.println("Client creating new child");
-				new Client(m, u);
-				new Client(m, set);
-				
-				//Listen for then send messages
-				while (true) {
-					Thread.sleep(50);
->>>>>>> origin/master
 					new Client(m, set);
 					return;
 				} else {
@@ -157,11 +115,7 @@ public class Client implements Runnable {
 				
 				//Listen for then send messages
 				while (true) {
-					Thread.sleep(300);
-<<<<<<< HEAD
-=======
-					Thread.sleep(300);
->>>>>>> origin/master
+					Thread.sleep(100);
 					if (m.toBeSent) {
 						System.out.println("Sending message '"+m.message.getText()+"' via TCP...");
 						out.writeBytes(m.message.getText()+'\n');
@@ -172,11 +126,6 @@ public class Client implements Runnable {
 				
 			} else if (data[0] == NetConstants.SERVER_REQUEST_DENIED[0]) {
 				System.out.println("Remote server denied access");
-<<<<<<< HEAD
-=======
-				new Client(m, u);
-				new Client(m, set);
->>>>>>> origin/master
 				new Client(m, set);
 				return;
 			}

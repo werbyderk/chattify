@@ -56,13 +56,11 @@ public class Server implements Runnable {
 						break;
 					} else {
 						System.out.println("Received localhost packet. Ignoring.");
-						Thread.sleep(3000);
 					} 
 				} else {
 					System.out.println("Corrupted or incorrect packet");
-					Thread.sleep(3000);
 				}
-			} catch (IOException | InterruptedException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 				m.error(e);		
 			}
@@ -73,7 +71,6 @@ public class Server implements Runnable {
 
 			data = packet.getData();
 			//If first byte is a request byte & not localhost
-
 			//Ensure client connecting isn't on same IP as a connected client
 			boolean isAlreadyConnected = false;
 			for (String s : usr.ipAddrs) {
@@ -85,7 +82,6 @@ public class Server implements Runnable {
 				packet.setData(NetConstants.SERVER_REQUEST_DENIED);
 				socket.send(packet);
 				System.out.println("Creating new child server");
-				Thread.sleep(3000);
 				new Server(m, usr, true);
 				return;
 			}
@@ -100,17 +96,12 @@ public class Server implements Runnable {
 				StyleConstants.setForeground(m.style, Color.BLACK);
 				m.appendString("connecting...", false);
 			}
-			//Wait for TCP connection
-			if (!isChild) servSocket = new ServerSocket(LOCAL_TCP_PORT);
+			//Wait for dynamic TCP connection
+			servSocket = new ServerSocket();
 			Socket connSocket = servSocket.accept();
-			System.out.println("TCP connection established.");
+			System.out.println("TCP connection established on port "+servSocket.getLocalPort());
 			in = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
 			out = new DataOutputStream(connSocket.getOutputStream());
-			//First TCP message will be username
-			if (!isChild) {
-				StyleConstants.setForeground(m.style, Color.BLACK);
-				m.appendString("awaiting username...", false);
-			}
 			System.out.println("Server waiting for username...");
 			username = in.readLine();
 			System.out.println("Server received username '" + username + "'");
@@ -173,7 +164,7 @@ public class Server implements Runnable {
 			//Receive & print data
 			message = "";
 			System.out.println("Server listening for messages...");
-			while (!message.equals(null)) { //null *should* mean client disconnected
+			while (!message.isEmpty()) { //*should* mean client disconnected
 				message = in.readLine();
 				System.out.println("Received TCP message: " + message);
 
@@ -188,6 +179,8 @@ public class Server implements Runnable {
 			System.out.println("Removing IP from array @ " + loc);
 			usr.listModel.removeElement(username);
 			usr.ipAddrs.remove(loc);
+			servSocket.close();
+			socket.close();
 			return; 
 		} catch (IOException | InterruptedException e)  {
 			e.printStackTrace();

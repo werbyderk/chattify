@@ -1,5 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.SocketException;
@@ -7,7 +9,7 @@ import java.net.SocketException;
 
 public class MainRunner extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public static final String version = "0.1.2.1";
+	public static final String version = "0.2";
 	private static final String title = "Chattify v"+version;
 	private static final int WIDTH = 700;
 	private static final int HEIGHT = 450;
@@ -17,13 +19,13 @@ public class MainRunner extends JFrame {
 	private GridBagConstraints c;
 	public JPanel panel;
 	private Settings stngs;
-
+	private JSplitPane splitPane;
 	
 	public MainRunner() {
 		//**Constructor**
 		stngs = new Settings();
 		msgs = new Messages(this);
-		usrUI = new UsersUI(msgs);
+		usrUI = new UsersUI();
 		try {
 			new Client(msgs, stngs);
 		} catch (SocketException e) {
@@ -33,7 +35,10 @@ public class MainRunner extends JFrame {
 		c = new GridBagConstraints();
 		panel = new JPanel(new GridBagLayout());
 		panel.setSize(WIDTH, HEIGHT);
-		
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		splitPane.setLeftComponent(usrUI.listScroller);
+		splitPane.setRightComponent(msgs.messageUI);
+		splitPane.setResizeWeight(0.2);
 		try {
 			new Server(msgs, usrUI, false);
 		} catch (IOException e) {
@@ -44,6 +49,16 @@ public class MainRunner extends JFrame {
 		//UI implementation
 		c.insets = new Insets(3, 3, 3, 3); //External padding
 		
+		//Splitpane
+		c.ipadx = 0;
+		c.ipady = 0;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridheight = 2;
+		c.gridwidth = 6;
+		c.fill = GridBagConstraints.BOTH;
+		draw(splitPane, 0, 0);
+		/*
 		//UserUI listScroller
 		c.weightx = 0.7;
 		c.weighty = 1;
@@ -53,8 +68,10 @@ public class MainRunner extends JFrame {
 		c.gridheight = 2; 
 		c.fill = GridBagConstraints.BOTH;
 		draw(usrUI.listScroller, 0, 0);
+		*/
 		
 		//Messages messageUI
+		/*
 		c.weightx = 1;
 		c.weighty = 1;
 		c.ipadx = 0;
@@ -63,17 +80,17 @@ public class MainRunner extends JFrame {
 		c.gridheight = 2;
 		c.fill = GridBagConstraints.BOTH;
 		draw(msgs.messageUI, 3, 0);
-		
+		*/
 		//Messages message textfield
 		c.ipadx = 0;
 		c.ipady = 0;
-		c.gridwidth = 2;
+		c.gridwidth = 3;
 		c.gridheight = 1;
-		c.weightx = .1;
+		c.weightx = .6;
 		c.weighty = 0;
 		c.anchor = GridBagConstraints.PAGE_END;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		draw(msgs.message, 3, 2);
+		draw(msgs.message, 2, 2);
 		
 		//Message send button
 		c.gridwidth = 1;
@@ -86,8 +103,8 @@ public class MainRunner extends JFrame {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		draw(msgs.send, 5, 2);
 		
-		//Username text field
-		c.gridwidth = 2;
+		//Settings button
+		c.gridwidth = 1;
 		c.gridheight = 1;
 		c.ipadx = 0;
 		c.ipady = 0;
@@ -98,6 +115,7 @@ public class MainRunner extends JFrame {
 		add(panel);
 		
 		//JFrame properties
+		setMinimumSize(new Dimension(400, 200));
 		setSize(WIDTH, HEIGHT);
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +123,7 @@ public class MainRunner extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		System.setProperty("java.net.preferIPv4Stack" , "true");
+		System.setProperty("java.net.preferIPv4Stack", "true");
 		new MainRunner();
 	}
 	public void draw(Component comp, int x, int y) {

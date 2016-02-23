@@ -14,11 +14,10 @@ public class UsersUI extends JDialog {
 	JScrollPane listScroller;
 	List<String> ipAddrs;
 	boolean usrNameValid;
-	Messages m;
+
 	
 	
-	public UsersUI(Messages m) {
-		this.m = m;
+	public UsersUI() {
 		usrNameValid = false;
 		ipAddrs = new ArrayList<String>();
 		listModel = new DefaultListModel<String>();
@@ -45,7 +44,6 @@ public class UsersUI extends JDialog {
 		listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(400, 500));
 
-		
 		//listModel.addElement("Placeholder");
 		
 		

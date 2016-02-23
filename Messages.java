@@ -35,6 +35,7 @@ public class Messages implements KeyListener {
 		contxt = new StyleContext();
 		doc = new DefaultStyledDocument(contxt);
 		style = contxt.getStyle(StyleContext.DEFAULT_STYLE);
+		
 		border = BorderFactory.createLineBorder(Color.BLACK);
 		txt = new JTextPane(doc);
 		doc = txt.getStyledDocument();
@@ -51,8 +52,8 @@ public class Messages implements KeyListener {
 		txt.setEditable(false);
 		txt.setBackground(Color.LIGHT_GRAY);
 		messageUI = new JScrollPane(txt);
-		messageUI.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		messageUI.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		messageUI.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		messageUI.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		messageUI.setViewportBorder(border);
 		
 		messageUI.setPreferredSize(new Dimension(400, 800));
