@@ -13,7 +13,7 @@ Instead of having a traditional server-client system to send messages, Chattify 
 
 ###Roadmap
 - Image and file support
-- Allow resizing of messages pane and users pane
+- ~~Allow resizing of messages pane and users pane~~
 - Notifications
 - Better handling of changing username
 - Direct messaging
