@@ -6,10 +6,11 @@ __Chattify is the most versatile chat program made yet. Instead of depending on 
 Instead of having a traditional server-client system to send messages, Chattify implements server and client properties into a single application. When the 'client' portion of one computer running Chattify connects to the 'server' of another Chattify instance and vice-versa, the two machines are able to exchange messages.
 
 ###Known issues
-- User will receive ``null`` from disconnecting users
-- User list won’t update when a user disconnects
-- Messages won’t be received or sent properly with more than 2 users connected
+- ~~User will receive ``null`` from disconnecting users~~ To be determined
+- ~~User list won’t update when a user disconnects~~ To be determined
+- ~~Messages won’t be received or sent properly with more than 2 users connected~~ To be determined
 - Messages can be sent when the client part of the program is disconnected
+- Multiple `Settings.class` `JFrame`s can be loaded by clicking `settingsButton` multiple times
 
 ###Roadmap
 - Image and file support
